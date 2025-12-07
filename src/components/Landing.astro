@@ -3,6 +3,14 @@ import { getLangFromUrl, useTranslations } from '../i18n/translations';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const serviceIcons: Record<string, string> = {
+  'n8n': '/icons/n8n.svg',
+  'Grafana': '/icons/grafana.svg',
+  'ArgoCD': '/icons/argocd.svg',
+  'Keycloak': '/icons/keycloak.svg',
+  'Uptime': '/icons/uptime.svg',
+};
 ---
 
 <main>
@@ -75,7 +83,7 @@ const t = useTranslations(lang);
           <div class="card-gradient"></div>
           <div class="card-icon">
             <span class="icon-bg"></span>
-            <span class="icon-letter">{service.name[0]}</span>
+            <img src={serviceIcons[service.name]} alt={service.name} class="icon-img" />
             <span class="icon-ring"></span>
           </div>
           <div class="card-info">
@@ -642,13 +650,13 @@ const t = useTranslations(lang);
       0 0 40px hsla(calc(var(--hue)), 80%, 50%, 0.2);
   }
 
-  .icon-letter {
+  .icon-img {
     position: relative;
     z-index: 2;
-    font-size: 1.375rem;
-    font-weight: 800;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   }
 
   .icon-ring {
