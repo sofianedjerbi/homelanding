@@ -1,0 +1,781 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/translations';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>{t.hero.greeting}</span>
+      </div>
+
+      <h1 class="title">{t.hero.name}</h1>
+      <p class="tagline">{t.hero.tagline}</p>
+      <p class="description">{t.hero.description}</p>
+
+      <a href="https://sofianedjerbi.com" target="_blank" rel="noopener" class="author-btn">
+        <div class="author-avatar">
+          <div class="avatar-ring"></div>
+          <img src="/avatar.jpg" alt="Sofiane Djerbi" />
+        </div>
+        <span class="author-text">
+          <span class="author-name">{t.hero.author}</span>
+          <span class="author-cta">View portfolio →</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="scroll-hint">
+      <span class="scroll-text">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Infrastructure Bento -->
+  <section class="section">
+    <h2 class="section-title">{t.infra.title}</h2>
+    <div class="bento">
+      {t.infra.items.map((item, i) => (
+        <div class="bento-item" style={`--i: ${i}; --hue: ${i * 40}`}>
+          <div class="bento-gradient"></div>
+          <div class="bento-content">
+            <div class="bento-icon">
+              {i === 0 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="7.5 4.21 12 6.81 16.5 4.21"/><polyline points="7.5 19.79 7.5 14.6 3 12"/><polyline points="21 12 16.5 14.6 16.5 19.79"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>}
+              {i === 1 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>}
+              {i === 2 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>}
+              {i === 3 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>}
+              {i === 4 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>}
+              {i === 5 && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>}
+            </div>
+            <div class="bento-text">
+              <span class="bento-label">{item.label}</span>
+              <span class="bento-value">{item.value}</span>
+            </div>
+          </div>
+          <div class="bento-glow"></div>
+          <div class="bento-particles">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section">
+    <h2 class="section-title">{t.services.title}</h2>
+    <div class="cards">
+      {t.services.items.map((service, i) => (
+        <a href={service.url} class="card" target="_blank" rel="noopener" style={`--i: ${i}; --hue: ${i * 60 + 200}`}>
+          <div class="card-gradient"></div>
+          <div class="card-icon">
+            <span class="icon-bg"></span>
+            <span class="icon-letter">{service.name[0]}</span>
+            <span class="icon-ring"></span>
+          </div>
+          <div class="card-info">
+            <h3>{service.name}</h3>
+            <p>{service.description}</p>
+          </div>
+          <div class="card-status">
+            <span class="status-dot"></span>
+          </div>
+          <svg class="card-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M5 15L15 5M15 5H8M15 5V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="card-border"></div>
+          <div class="card-shine"></div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <a href={t.footer.repo} target="_blank" rel="noopener" class="github-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+      </svg>
+      <span>{t.footer.source}</span>
+    </a>
+  </footer>
+</main>
+
+<style>
+  main {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-content {
+    max-width: 700px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    backdrop-filter: blur(12px);
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #22c55e, 0 0 20px #22c55e;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+  }
+
+  .title {
+    margin-top: 1.5rem;
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    background: linear-gradient(135deg, #fff 0%, #fff 40%, var(--accent-cyan) 70%, var(--accent-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeIn 0.8s 0.1s ease forwards;
+    opacity: 0;
+  }
+
+  .tagline {
+    margin-top: 1.5rem;
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 500;
+    color: var(--text);
+    animation: fadeIn 0.8s 0.2s ease forwards;
+    opacity: 0;
+  }
+
+  .description {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 0.8s 0.3s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .author-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding: 0.5rem 1.25rem 0.5rem 0.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50px;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    animation: fadeIn 0.8s 0.4s ease forwards;
+    opacity: 0;
+  }
+
+  .author-btn:hover {
+    background: rgba(30, 30, 30, 0.9);
+    border-color: var(--card-border-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(0, 112, 243, 0.2);
+  }
+
+  .author-avatar {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .avatar-ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      var(--accent-purple),
+      var(--accent-pink),
+      var(--accent-cyan),
+      var(--accent),
+      var(--accent-purple)
+    );
+    animation: ringRotate 4s linear infinite;
+    z-index: 1;
+  }
+
+  .avatar-ring::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: var(--bg);
+    border-radius: 50%;
+  }
+
+  @keyframes ringRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .author-btn:hover .avatar-ring {
+    animation-duration: 2s;
+    box-shadow: 0 0 20px var(--accent-pink), 0 0 40px var(--accent-purple);
+  }
+
+  .author-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.125rem;
+  }
+
+  .author-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .author-cta {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    transition: color 0.3s;
+  }
+
+  .author-btn:hover .author-cta {
+    color: var(--accent-cyan);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeIn 0.8s 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .scroll-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--text-tertiary), transparent);
+    animation: scrollAnim 2s infinite;
+  }
+
+  @keyframes scrollAnim {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.6); }
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    padding: 4rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--text-tertiary);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* ===== BENTO GRID ===== */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .bento-item {
+    position: relative;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideUp 0.6s calc(var(--i) * 0.1s) ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .bento-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      hsla(calc(var(--hue)), 80%, 60%, 0.1) 0%,
+      transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .bento-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      hsla(calc(var(--hue)), 80%, 60%, 0.3),
+      transparent 50%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .bento-item:hover::before,
+  .bento-item:hover .bento-gradient {
+    opacity: 1;
+  }
+
+  @keyframes slideUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .bento-item:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 0 60px hsla(calc(var(--hue)), 80%, 60%, 0.15);
+  }
+
+  .bento-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .bento-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, hsla(calc(var(--hue)), 70%, 50%, 0.2), transparent);
+    border: 1px solid hsla(calc(var(--hue)), 70%, 60%, 0.3);
+    border-radius: 12px;
+    color: hsla(calc(var(--hue)), 70%, 70%, 1);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .bento-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .bento-item:hover .bento-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 20px hsla(calc(var(--hue)), 80%, 60%, 0.4);
+    border-color: hsla(calc(var(--hue)), 70%, 60%, 0.6);
+  }
+
+  .bento-text {
+    flex: 1;
+  }
+
+  .bento-label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+    margin-bottom: 0.375rem;
+  }
+
+  .bento-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .bento-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at var(--x, 50%) var(--y, 50%),
+      hsla(calc(var(--hue)), 80%, 60%, 0.2) 0%,
+      transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .bento-item:hover .bento-glow {
+    opacity: 1;
+  }
+
+  .bento-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .bento-particles span {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: hsla(calc(var(--hue)), 80%, 70%, 0.6);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .bento-particles span:nth-child(1) { top: 20%; right: 15%; }
+  .bento-particles span:nth-child(2) { top: 60%; right: 25%; }
+  .bento-particles span:nth-child(3) { top: 40%; right: 10%; }
+
+  .bento-item:hover .bento-particles span {
+    opacity: 1;
+    animation: particleFloat 2s ease-in-out infinite;
+  }
+
+  .bento-item:hover .bento-particles span:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+
+  .bento-item:hover .bento-particles span:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+
+  @keyframes particleFloat {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50% { transform: translateY(-10px) scale(1.2); opacity: 1; }
+  }
+
+  /* ===== SERVICE CARDS ===== */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideUp 0.6s calc(var(--i) * 0.1s) ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .card-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      hsla(calc(var(--hue)), 80%, 50%, 0.08) 0%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .card:hover .card-gradient {
+    opacity: 1;
+  }
+
+  .card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+      0 25px 50px rgba(0, 0, 0, 0.4),
+      0 0 80px hsla(calc(var(--hue)), 80%, 50%, 0.15);
+  }
+
+  .card-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      hsla(calc(var(--hue)), 80%, 60%, 0.4),
+      transparent 40%,
+      transparent 60%,
+      hsla(calc(var(--hue) + 60), 80%, 60%, 0.2)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .card:hover .card-border {
+    opacity: 1;
+  }
+
+  .card-shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.03) 45%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0.03) 55%,
+      transparent 60%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s;
+    pointer-events: none;
+  }
+
+  .card:hover .card-shine {
+    transform: translateX(100%);
+  }
+
+  .card-icon {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .icon-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, hsla(calc(var(--hue)), 80%, 50%, 1), hsla(calc(var(--hue) + 40), 80%, 50%, 1));
+    border-radius: 14px;
+    transition: all 0.4s ease;
+  }
+
+  .card:hover .icon-bg {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow:
+      0 10px 30px hsla(calc(var(--hue)), 80%, 50%, 0.4),
+      0 0 40px hsla(calc(var(--hue)), 80%, 50%, 0.2);
+  }
+
+  .icon-letter {
+    position: relative;
+    z-index: 2;
+    font-size: 1.375rem;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .icon-ring {
+    position: absolute;
+    inset: -4px;
+    border: 2px solid hsla(calc(var(--hue)), 80%, 60%, 0.3);
+    border-radius: 18px;
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+
+  .card:hover .icon-ring {
+    opacity: 1;
+    animation: ringPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes ringPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.15); opacity: 0; }
+  }
+
+  .card-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-info h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+    transition: color 0.3s;
+  }
+
+  .card:hover .card-info h3 {
+    color: hsla(calc(var(--hue)), 70%, 75%, 1);
+  }
+
+  .card-info p {
+    font-size: 0.8125rem;
+    color: var(--text-tertiary);
+  }
+
+  .card-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .status-dot {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #22c55e;
+    animation: statusPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes statusPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px #22c55e; }
+    50% { opacity: 0.6; box-shadow: 0 0 16px #22c55e; }
+  }
+
+  .card-arrow {
+    position: relative;
+    z-index: 2;
+    color: var(--text-tertiary);
+    opacity: 0;
+    transform: translate(-8px, 8px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card:hover .card-arrow {
+    opacity: 1;
+    transform: translate(0, 0);
+    color: hsla(calc(var(--hue)), 70%, 70%, 1);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--card-border);
+  }
+
+  .github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+
+  .github-btn:hover {
+    background: rgba(30, 30, 30, 0.9);
+    border-color: var(--card-border-hover);
+    color: var(--text);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .bento {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bento {
+      grid-template-columns: 1fr;
+    }
+
+    .cards {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      padding: 3rem 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Bento glow effect
+  document.querySelectorAll('.bento-item').forEach((item) => {
+    item.addEventListener('mousemove', (e) => {
+      const rect = item.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      item.style.setProperty('--x', `${x}%`);
+      item.style.setProperty('--y', `${y}%`);
+    });
+  });
+</script>
