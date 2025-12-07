@@ -14,6 +14,7 @@ export const translations = {
       tagline: 'Production-grade cloud infrastructure',
       description: 'Immutable Kubernetes on Talos Linux, secured with zero-trust networking and fully automated GitOps deployments.',
       author: 'by Sofiane Djerbi',
+      viewPortfolio: 'View portfolio',
     },
     infra: {
       title: 'Infrastructure',
@@ -57,7 +58,8 @@ export const translations = {
       ],
     },
     footer: {
-      source: 'Source',
+      cta: 'Explore the Infrastructure',
+      ctaSub: '100% open source on GitHub',
       repo: 'https://github.com/sofianedjerbi/homelab',
     },
   },
@@ -69,13 +71,14 @@ export const translations = {
       tagline: 'Infrastructure cloud de qualité production',
       description: 'Kubernetes immuable sur Talos Linux, sécurisé avec un réseau zero-trust et des déploiements GitOps entièrement automatisés.',
       author: 'par Sofiane Djerbi',
+      viewPortfolio: 'Voir le portfolio',
     },
     infra: {
       title: 'Infrastructure',
       items: [
         { label: 'Orchestration', value: 'Kubernetes sur Talos Linux' },
         { label: 'Réseau', value: 'Cilium CNI avec Gateway API' },
-        { label: 'GitOps', value: 'ArgoCD avec chiffrement SOPS' },
+        { label: 'GitOps', value: 'ArgoCD et SOPS' },
         { label: 'Identité', value: 'Keycloak OIDC / SSO' },
         { label: 'IaC', value: 'Terraform + Terragrunt' },
         { label: 'Hébergement', value: 'Hetzner Cloud (Nuremberg)' },
@@ -112,7 +115,8 @@ export const translations = {
       ],
     },
     footer: {
-      source: 'Source',
+      cta: 'Explorer l\'Infrastructure',
+      ctaSub: '100% open source sur GitHub',
       repo: 'https://github.com/sofianedjerbi/homelab',
     },
   },
