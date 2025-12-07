@@ -68,8 +68,8 @@ export const translations = {
     hero: {
       greeting: 'Bienvenue sur',
       name: 'etcd.me',
-      tagline: 'Infrastructure cloud de qualité production',
-      description: 'Kubernetes immuable sur Talos Linux, sécurisé avec un réseau zero-trust et des déploiements GitOps entièrement automatisés.',
+      tagline: 'Infrastructure cloud professionnelle',
+      description: 'Cluster Kubernetes immutable sous Talos Linux. Réseau zero-trust, déploiements GitOps automatisés.',
       author: 'par Sofiane Djerbi',
       viewPortfolio: 'Voir le portfolio',
     },
