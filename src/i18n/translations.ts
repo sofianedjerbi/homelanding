@@ -38,7 +38,7 @@ export const translations = {
         {
           name: 'Grafana',
           description: 'Observability',
-          url: 'https://grafana.etcd.me',
+          url: 'https://loki.etcd.me',
         },
         {
           name: 'ArgoCD',
@@ -95,7 +95,7 @@ export const translations = {
         {
           name: 'Grafana',
           description: 'Observabilité',
-          url: 'https://grafana.etcd.me',
+          url: 'https://loki.etcd.me',
         },
         {
           name: 'ArgoCD',
