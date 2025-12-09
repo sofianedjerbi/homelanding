@@ -10,6 +10,7 @@ const serviceIcons: Record<string, string> = {
   'ArgoCD': '/icons/argocd.svg',
   'Keycloak': '/icons/keycloak.svg',
   'Uptime': '/icons/uptime.svg',
+  'Many more': '/icons/more.svg',
 };
 ---
 
@@ -17,13 +18,26 @@ const serviceIcons: Record<string, string> = {
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <div class="badge">
-        <span class="badge-dot"></span>
-        <span>{t.hero.greeting}</span>
+      <!-- System Info -->
+      <div class="system-info">
+        <div class="info-item">
+          <span class="info-label">UPTIME</span>
+          <span class="info-value" id="uptime">847d 14:32:07</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">NODES</span>
+          <span class="info-value status-green">3/3</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">STATUS</span>
+          <span class="info-value status-green">ONLINE</span>
+        </div>
       </div>
 
       <h1 class="title">{t.hero.name}</h1>
-      <p class="tagline">{t.hero.tagline}</p>
+      <p class="tagline">
+        <span class="typewriter typewriter-delay">{t.hero.tagline}</span>
+      </p>
       <p class="description">{t.hero.description}</p>
 
       <a href="https://sofianedjerbi.com" target="_blank" rel="noopener" class="author-btn">
@@ -33,7 +47,7 @@ const serviceIcons: Record<string, string> = {
         </div>
         <span class="author-text">
           <span class="author-name">{t.hero.author}</span>
-          <span class="author-cta">{t.hero.viewPortfolio} →</span>
+          <span class="author-cta">{t.hero.viewPortfolio} <svg class="inline-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
         </span>
       </a>
     </div>
@@ -49,7 +63,11 @@ const serviceIcons: Record<string, string> = {
     <h2 class="section-title">{t.infra.title}</h2>
     <div class="bento">
       {t.infra.items.map((item, i) => (
-        <div class="bento-item" style={`--i: ${i}; --hue: ${i * 40}`}>
+        <div class="bento-item terminal-panel" style={`--i: ${i}; --hue: ${180 + i * 25}; --cpu: ${15 + i * 8}%`}>
+          <div class="panel-header">
+            <span class="panel-pid">PID {1000 + i * 127}</span>
+            <span class="panel-status-dot"></span>
+          </div>
           <div class="bento-gradient"></div>
           <div class="bento-content">
             <div class="bento-icon">
@@ -65,10 +83,11 @@ const serviceIcons: Record<string, string> = {
               <span class="bento-value">{item.value}</span>
             </div>
           </div>
-          <div class="bento-glow"></div>
-          <div class="bento-particles">
-            <span></span><span></span><span></span>
+          <div class="panel-metrics">
+            <div class="metric-bar cpu-bar"></div>
+            <span class="metric-label">CPU {(1.5 + i * 0.8).toFixed(1)}%</span>
           </div>
+          <div class="bento-glow"></div>
         </div>
       ))}
     </div>
@@ -79,46 +98,55 @@ const serviceIcons: Record<string, string> = {
     <h2 class="section-title">{t.services.title}</h2>
     <div class="cards">
       {t.services.items.map((service, i) => (
-        <a href={service.url} class="card" target="_blank" rel="noopener" style={`--i: ${i}; --hue: ${i * 60 + 200}`}>
+        <a href={service.url} class="card terminal-window" target="_blank" rel="noopener" style={`--i: ${i}; --hue: ${i * 60 + 200}; --latency: ${18 + i * 7}`}>
+          <div class="window-titlebar">
+            <div class="titlebar-buttons">
+              <span class="btn-dot red"></span>
+              <span class="btn-dot yellow"></span>
+              <span class="btn-dot green"></span>
+            </div>
+            <span class="window-title">{service.name.toLowerCase()}.service</span>
+          </div>
           <div class="card-gradient"></div>
-          <div class="card-icon">
-            <span class="icon-bg"></span>
-            <img src={serviceIcons[service.name]} alt={service.name} class="icon-img" />
-            <span class="icon-ring"></span>
+          <div class="card-body">
+            <div class="card-icon">
+              <span class="icon-bg"></span>
+              <img src={serviceIcons[service.name]} alt={service.name} class="icon-img" />
+              <span class="icon-ring"></span>
+            </div>
+            <div class="card-info">
+              <h3>{service.name}</h3>
+              <p>{service.description}</p>
+            </div>
           </div>
-          <div class="card-info">
-            <h3>{service.name}</h3>
-            <p>{service.description}</p>
+          <div class="card-metrics">
+            <span class="latency"><span class="latency-value">{18 + i * 7}</span>ms</span>
+            <span class="connections">{12 + i * 8} conn</span>
           </div>
-          <div class="card-status">
-            <span class="status-dot"></span>
-          </div>
-          <svg class="card-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M5 15L15 5M15 5H8M15 5V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg class="card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
           </svg>
           <div class="card-border"></div>
-          <div class="card-shine"></div>
         </a>
       ))}
     </div>
   </section>
 
   <!-- Footer CTA -->
-  <footer>
-    <a href={t.footer.repo} target="_blank" rel="noopener" class="footer-cta">
+  <footer class="terminal-footer">
+    <div class="command-display">
+      <span class="prompt-symbol">$</span>
+      <span class="command">git clone</span>
+      <span class="url">{t.footer.repo}</span>
+    </div>
+    <a href={t.footer.repo} target="_blank" rel="noopener" class="cta-button">
       <div class="cta-glow"></div>
       <div class="cta-content">
-        <svg class="cta-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <svg class="cta-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
         </svg>
-        <div class="cta-text">
-          <span class="cta-main">{t.footer.cta}</span>
-          <span class="cta-sub">{t.footer.ctaSub}</span>
-        </div>
-        <svg class="cta-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
+        <span class="cta-text">{t.footer.cta}</span>
+        <span class="cta-hint">[ENTER]</span>
       </div>
     </a>
   </footer>
@@ -146,32 +174,39 @@ const serviceIcons: Record<string, string> = {
     max-width: 700px;
   }
 
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 50px;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    backdrop-filter: blur(12px);
+  /* System Info */
+  .system-info {
+    display: flex;
+    gap: 1.5rem;
     animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
   }
 
-  .badge-dot {
-    width: 8px;
-    height: 8px;
-    background: #22c55e;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #22c55e, 0 0 20px #22c55e;
-    animation: pulse 2s infinite;
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.1); }
+  .info-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+  }
+
+  .info-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .info-value.status-green {
+    color: var(--accent-green);
+    text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
   }
 
   .title {
@@ -184,7 +219,7 @@ const serviceIcons: Record<string, string> = {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: fadeIn 0.8s 0.1s ease forwards;
+    animation: fadeIn 0.8s 0.15s ease forwards;
     opacity: 0;
   }
 
@@ -193,8 +228,36 @@ const serviceIcons: Record<string, string> = {
     font-size: clamp(1.25rem, 3vw, 1.75rem);
     font-weight: 500;
     color: var(--text);
-    animation: fadeIn 0.8s 0.2s ease forwards;
+    animation: fadeIn 0.8s 0.25s ease forwards;
     opacity: 0;
+  }
+
+  /* Typewriter Effect */
+  .typewriter {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 3px solid var(--accent-cyan);
+    white-space: nowrap;
+    animation:
+      typing 0.6s steps(12) forwards,
+      typingCursor 0.6s step-end infinite;
+  }
+
+  .typewriter-delay {
+    animation:
+      typing 0.4s 0.5s steps(30) forwards,
+      typingCursor 0.6s step-end infinite;
+    width: 0;
+  }
+
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @keyframes typingCursor {
+    0%, 100% { border-color: var(--accent-cyan); }
+    50% { border-color: transparent; }
   }
 
   .description {
@@ -304,6 +367,13 @@ const serviceIcons: Record<string, string> = {
     font-size: 0.75rem;
     color: var(--text-tertiary);
     transition: color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .inline-arrow {
+    vertical-align: middle;
   }
 
   .author-btn:hover .author-cta {
@@ -322,22 +392,36 @@ const serviceIcons: Record<string, string> = {
   }
 
   .scroll-text {
-    font-size: 0.75rem;
+    font-size: 0.625rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-tertiary);
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.5);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%),
+      rgba(0, 0, 0, 0.4);
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
   .scroll-line {
     width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--text-tertiary), transparent);
-    animation: scrollAnim 2s infinite;
+    height: 32px;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent
+    );
+    animation: scrollAnim 2.5s ease-in-out infinite;
   }
 
   @keyframes scrollAnim {
-    0%, 100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(0.6); }
+    0%, 100% { opacity: 0.4; transform: scaleY(1) translateY(0); }
+    50% { opacity: 0.8; transform: scaleY(0.7) translateY(4px); }
   }
 
   /* ===== SECTIONS ===== */
@@ -345,68 +429,83 @@ const serviceIcons: Record<string, string> = {
     padding: 4rem 2rem;
     max-width: 1100px;
     margin: 0 auto;
+    text-align: center;
   }
 
   .section-title {
-    font-size: 0.75rem;
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--text-tertiary);
-    margin-bottom: 2rem;
-    text-align: center;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.7);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%),
+      rgba(0, 0, 0, 0.5);
+    padding: 0.625rem 1.25rem;
+    border-radius: 100px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 2.5rem;
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .section-title::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-cyan);
   }
 
   /* ===== BENTO GRID ===== */
   .bento {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+    gap: 0.75rem;
   }
 
   .bento-item {
     position: relative;
-    padding: 1.5rem;
-    background: var(--card-bg);
-    border-radius: 20px;
+    padding: 1rem 1.125rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 50%),
+      linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+    border-radius: 14px;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: slideUp 0.6s calc(var(--i) * 0.1s) ease forwards;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideUp 0.6s calc(var(--i) * 0.08s) ease forwards;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .bento-item:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.3),
+      0 0 40px hsla(calc(var(--hue)), 80%, 60%, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
   }
 
   .bento-gradient {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      135deg,
-      hsla(calc(var(--hue)), 80%, 60%, 0.1) 0%,
-      transparent 50%
-    );
-    opacity: 0;
-    transition: opacity 0.4s;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, hsla(calc(var(--hue)), 80%, 60%, 0.08) 0%, transparent 50%);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
   }
 
-  .bento-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      hsla(calc(var(--hue)), 80%, 60%, 0.3),
-      transparent 50%
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-
-  .bento-item:hover::before,
   .bento-item:hover .bento-gradient {
     opacity: 1;
   }
@@ -415,78 +514,82 @@ const serviceIcons: Record<string, string> = {
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .bento-item:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow:
-      0 20px 40px rgba(0, 0, 0, 0.3),
-      0 0 60px hsla(calc(var(--hue)), 80%, 60%, 0.15);
-  }
-
   .bento-content {
     position: relative;
     z-index: 2;
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .bento-icon {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, hsla(calc(var(--hue)), 70%, 50%, 0.2), transparent);
-    border: 1px solid hsla(calc(var(--hue)), 70%, 60%, 0.3);
-    border-radius: 12px;
-    color: hsla(calc(var(--hue)), 70%, 70%, 1);
+    background:
+      linear-gradient(135deg, hsla(calc(var(--hue)), 70%, 50%, 0.2) 0%, hsla(calc(var(--hue) + 30), 60%, 40%, 0.1) 100%);
+    border: 1px solid hsla(calc(var(--hue)), 70%, 60%, 0.2);
+    border-radius: 10px;
+    color: hsla(calc(var(--hue)), 60%, 75%, 1);
     flex-shrink: 0;
     transition: all 0.3s ease;
+    box-shadow: 0 2px 6px hsla(calc(var(--hue)), 80%, 50%, 0.1);
   }
 
   .bento-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
   }
 
   .bento-item:hover .bento-icon {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 0 20px hsla(calc(var(--hue)), 80%, 60%, 0.4);
-    border-color: hsla(calc(var(--hue)), 70%, 60%, 0.6);
+    transform: scale(1.05);
+    box-shadow:
+      0 4px 16px hsla(calc(var(--hue)), 80%, 50%, 0.25),
+      0 0 20px hsla(calc(var(--hue)), 80%, 60%, 0.15);
+    border-color: hsla(calc(var(--hue)), 70%, 60%, 0.4);
   }
 
   .bento-text {
     flex: 1;
+    min-width: 0;
   }
 
   .bento-label {
     display: block;
-    font-size: 0.6875rem;
+    font-size: 0.5625rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-tertiary);
-    margin-bottom: 0.375rem;
+    letter-spacing: 0.08em;
+    color: hsla(calc(var(--hue)), 50%, 65%, 0.8);
+    margin-bottom: 0.25rem;
   }
 
   .bento-value {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 500;
-    color: var(--text);
+    color: rgba(255, 255, 255, 0.92);
     line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  .bento-item:hover .bento-label {
+    color: hsla(calc(var(--hue)), 60%, 70%, 1);
   }
 
   .bento-glow {
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      circle at var(--x, 50%) var(--y, 50%),
-      hsla(calc(var(--hue)), 80%, 60%, 0.2) 0%,
-      transparent 50%
+      ellipse 80% 50% at var(--x, 50%) var(--y, 50%),
+      hsla(calc(var(--hue)), 80%, 60%, 0.15) 0%,
+      transparent 70%
     );
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.4s ease;
     pointer-events: none;
   }
 
@@ -494,43 +597,75 @@ const serviceIcons: Record<string, string> = {
     opacity: 1;
   }
 
-  .bento-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+  /* Panel Header (Terminal Process Style) */
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .panel-pid {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5625rem;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    letter-spacing: 0.03em;
+    opacity: 0.7;
+  }
+
+  .panel-status-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent-green);
+    border-radius: 50%;
+    animation: heartbeat 2.5s ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(34, 197, 94, 0.5);
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.3); opacity: 1; }
+  }
+
+  /* Panel Metrics (CPU Bar) */
+  .panel-metrics {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .metric-bar {
+    flex: 1;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 1px;
     overflow: hidden;
   }
 
-  .bento-particles span {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: hsla(calc(var(--hue)), 80%, 70%, 0.6);
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity 0.3s;
+  .cpu-bar::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: var(--cpu);
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent));
+    border-radius: 1px;
+    animation: cpuFluctuate 5s calc(var(--i) * 0.5s) ease-in-out infinite;
   }
 
-  .bento-particles span:nth-child(1) { top: 20%; right: 15%; }
-  .bento-particles span:nth-child(2) { top: 60%; right: 25%; }
-  .bento-particles span:nth-child(3) { top: 40%; right: 10%; }
-
-  .bento-item:hover .bento-particles span {
-    opacity: 1;
-    animation: particleFloat 2s ease-in-out infinite;
+  @keyframes cpuFluctuate {
+    0%, 100% { width: var(--cpu); }
+    50% { width: calc(var(--cpu) + 5%); }
   }
 
-  .bento-item:hover .bento-particles span:nth-child(2) {
-    animation-delay: 0.3s;
-  }
-
-  .bento-item:hover .bento-particles span:nth-child(3) {
-    animation-delay: 0.6s;
-  }
-
-  @keyframes particleFloat {
-    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
-    50% { transform: translateY(-10px) scale(1.2); opacity: 1; }
+  .metric-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5625rem;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+    opacity: 0.7;
   }
 
   /* ===== SERVICE CARDS ===== */
@@ -538,7 +673,7 @@ const serviceIcons: Record<string, string> = {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .card {
@@ -546,39 +681,158 @@ const serviceIcons: Record<string, string> = {
     max-width: 320px;
     position: relative;
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.25rem;
-    background: var(--card-bg);
-    border-radius: 20px;
+    flex-direction: column;
+    padding: 0;
+    background:
+      linear-gradient(180deg, rgba(25, 25, 25, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+    border-radius: 12px;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: slideUp 0.6s calc(var(--i) * 0.1s) ease forwards;
+    animation:
+      slideUp 0.6s calc(var(--i) * 0.1s) ease forwards,
+      cardFloat 7s calc(var(--i) * 1.2s) ease-in-out infinite;
     opacity: 0;
     transform: translateY(30px);
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.12),
+      0 8px 24px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Scanline overlay */
+  .terminal-window::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 223, 216, 0.015) 2px,
+      rgba(0, 223, 216, 0.015) 4px
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Window Titlebar */
+  .window-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 1rem;
+    background: rgba(15, 15, 15, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .titlebar-buttons {
+    display: flex;
+    gap: 6px;
+  }
+
+  .btn-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+
+  .btn-dot.red {
+    background: #ff5f56;
+    box-shadow: 0 0 0 1px rgba(255, 95, 86, 0.3);
+  }
+
+  .btn-dot.yellow {
+    background: #ffbd2e;
+    box-shadow: 0 0 0 1px rgba(255, 189, 46, 0.3);
+  }
+
+  .btn-dot.green {
+    background: #27c93f;
+    box-shadow: 0 0 0 1px rgba(39, 201, 63, 0.3);
+  }
+
+  .card:hover .btn-dot.red { box-shadow: 0 0 8px rgba(255, 95, 86, 0.5); }
+  .card:hover .btn-dot.yellow { box-shadow: 0 0 8px rgba(255, 189, 46, 0.5); }
+  .card:hover .btn-dot.green { box-shadow: 0 0 8px rgba(39, 201, 63, 0.5); }
+
+  .window-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    color: var(--text-tertiary);
+    letter-spacing: 0.02em;
+  }
+
+  .card-body {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Card Metrics */
+  .card-metrics {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.625rem 1.25rem;
+    background: rgba(10, 10, 10, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .latency {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    color: var(--text-tertiary);
+  }
+
+  .latency-value {
+    color: var(--accent-green);
+    text-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
+  }
+
+  .connections {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    color: var(--text-tertiary);
+    margin-left: auto;
+  }
+
+  @keyframes cardFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-3px) rotate(0.2deg); }
+    66% { transform: translateY(-1px) rotate(-0.15deg); }
   }
 
   .card-gradient {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      135deg,
-      hsla(calc(var(--hue)), 80%, 50%, 0.08) 0%,
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.4s;
+    background:
+      radial-gradient(ellipse 120% 80% at 10% 0%, hsla(calc(var(--hue)), 80%, 50%, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse 80% 60% at 90% 100%, hsla(calc(var(--hue) + 40), 70%, 45%, 0.08) 0%, transparent 50%);
+    animation: cardGradientPulse 5s calc(var(--i) * 0.7s) ease-in-out infinite;
+  }
+
+  @keyframes cardGradientPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
   }
 
   .card:hover .card-gradient {
     opacity: 1;
+    animation: none;
   }
 
   .card:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow:
-      0 25px 50px rgba(0, 0, 0, 0.4),
-      0 0 80px hsla(calc(var(--hue)), 80%, 50%, 0.15);
+      0 4px 8px rgba(0, 0, 0, 0.12),
+      0 12px 24px rgba(0, 0, 0, 0.18),
+      0 24px 48px rgba(0, 0, 0, 0.15),
+      0 0 60px hsla(calc(var(--hue)), 80%, 50%, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
   .card-border {
@@ -587,42 +841,39 @@ const serviceIcons: Record<string, string> = {
     border-radius: 20px;
     padding: 1px;
     background: linear-gradient(
-      135deg,
-      hsla(calc(var(--hue)), 80%, 60%, 0.4),
+      var(--card-border-angle, 135deg),
+      hsla(calc(var(--hue)), 80%, 60%, 0.3),
       transparent 40%,
       transparent 60%,
-      hsla(calc(var(--hue) + 60), 80%, 60%, 0.2)
+      hsla(calc(var(--hue) + 60), 80%, 60%, 0.15)
     );
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s;
+    animation: cardBorderRotate 10s calc(var(--i) * 0.8s) linear infinite;
     pointer-events: none;
+  }
+
+  @keyframes cardBorderRotate {
+    from { --card-border-angle: 0deg; }
+    to { --card-border-angle: 360deg; }
+  }
+
+  @property --card-border-angle {
+    syntax: '<angle>';
+    initial-value: 135deg;
+    inherits: false;
   }
 
   .card:hover .card-border {
-    opacity: 1;
-  }
-
-  .card-shine {
-    position: absolute;
-    inset: 0;
+    animation-duration: 3s;
     background: linear-gradient(
-      105deg,
+      var(--card-border-angle, 135deg),
+      hsla(calc(var(--hue)), 80%, 60%, 0.5),
       transparent 40%,
-      rgba(255, 255, 255, 0.03) 45%,
-      rgba(255, 255, 255, 0.05) 50%,
-      rgba(255, 255, 255, 0.03) 55%,
-      transparent 60%
+      transparent 60%,
+      hsla(calc(var(--hue) + 60), 80%, 60%, 0.3)
     );
-    transform: translateX(-100%);
-    transition: transform 0.6s;
-    pointer-events: none;
-  }
-
-  .card:hover .card-shine {
-    transform: translateX(100%);
   }
 
   .card-icon {
@@ -638,44 +889,83 @@ const serviceIcons: Record<string, string> = {
   .icon-bg {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, hsla(calc(var(--hue)), 80%, 50%, 1), hsla(calc(var(--hue) + 40), 80%, 50%, 1));
+    background: linear-gradient(145deg, hsla(calc(var(--hue)), 75%, 55%, 1), hsla(calc(var(--hue) + 35), 75%, 45%, 1));
     border-radius: 14px;
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: iconGlow 4s calc(var(--i) * 0.5s) ease-in-out infinite;
+    box-shadow:
+      0 2px 4px hsla(calc(var(--hue)), 80%, 30%, 0.3),
+      0 4px 12px hsla(calc(var(--hue)), 80%, 40%, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  @keyframes iconGlow {
+    0%, 100% {
+      box-shadow:
+        0 2px 4px hsla(calc(var(--hue)), 80%, 30%, 0.3),
+        0 4px 12px hsla(calc(var(--hue)), 80%, 40%, 0.2),
+        0 0 0 hsla(calc(var(--hue)), 80%, 50%, 0),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow:
+        0 3px 6px hsla(calc(var(--hue)), 80%, 30%, 0.32),
+        0 6px 16px hsla(calc(var(--hue)), 80%, 40%, 0.25),
+        0 0 20px hsla(calc(var(--hue)), 80%, 50%, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+      transform: scale(1.015);
+    }
   }
 
   .card:hover .icon-bg {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.08) rotate(4deg);
     box-shadow:
-      0 10px 30px hsla(calc(var(--hue)), 80%, 50%, 0.4),
-      0 0 40px hsla(calc(var(--hue)), 80%, 50%, 0.2);
+      0 6px 12px hsla(calc(var(--hue)), 80%, 30%, 0.4),
+      0 12px 32px hsla(calc(var(--hue)), 80%, 45%, 0.35),
+      0 0 48px hsla(calc(var(--hue)), 80%, 50%, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   }
 
   .icon-img {
     position: relative;
     z-index: 2;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card:hover .icon-img {
+    transform: scale(1.05);
   }
 
   .icon-ring {
     position: absolute;
-    inset: -4px;
-    border: 2px solid hsla(calc(var(--hue)), 80%, 60%, 0.3);
+    inset: -5px;
+    border: 1.5px solid hsla(calc(var(--hue)), 70%, 60%, 0.15);
     border-radius: 18px;
-    opacity: 0;
-    transition: all 0.4s ease;
+    animation: ringPulseAmbient 6s calc(var(--i) * 0.8s) ease-in-out infinite;
+  }
+
+  @keyframes ringPulseAmbient {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.06); opacity: 0.5; }
   }
 
   .card:hover .icon-ring {
-    opacity: 1;
-    animation: ringPulse 1.5s ease-in-out infinite;
+    animation: ringPulse 1.8s ease-in-out infinite;
+    border-color: hsla(calc(var(--hue)), 70%, 60%, 0.35);
   }
 
   @keyframes ringPulse {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.15); opacity: 0; }
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.12); opacity: 0; }
   }
 
   .card-info {
@@ -684,118 +974,136 @@ const serviceIcons: Record<string, string> = {
   }
 
   .card-info h3 {
-    font-size: 1.0625rem;
+    font-size: 1rem;
     font-weight: 600;
-    color: var(--text);
+    color: rgba(255, 255, 255, 0.95);
     margin-bottom: 0.25rem;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
+    letter-spacing: -0.01em;
   }
 
   .card:hover .card-info h3 {
-    color: hsla(calc(var(--hue)), 70%, 75%, 1);
+    color: hsla(calc(var(--hue)), 65%, 80%, 1);
   }
 
   .card-info p {
     font-size: 0.8125rem;
-    color: var(--text-tertiary);
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
   }
 
-  .card-status {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-  }
-
-  .status-dot {
-    display: block;
-    width: 8px;
-    height: 8px;
-    background: #22c55e;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #22c55e;
-    animation: statusPulse 2s ease-in-out infinite;
-  }
-
-  @keyframes statusPulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 8px #22c55e; }
-    50% { opacity: 0.6; box-shadow: 0 0 16px #22c55e; }
+  .card:hover .card-info p {
+    color: rgba(255, 255, 255, 0.65);
   }
 
   .card-arrow {
-    position: relative;
+    position: absolute;
+    top: 2.75rem;
+    right: 1rem;
     z-index: 2;
     color: var(--text-tertiary);
     opacity: 0;
-    transform: translate(-8px, 8px);
+    transform: translate(-4px, 4px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .card:hover .card-arrow {
     opacity: 1;
     transform: translate(0, 0);
-    color: hsla(calc(var(--hue)), 70%, 70%, 1);
+    color: var(--accent-cyan);
   }
 
   /* ===== FOOTER CTA ===== */
-  footer {
+  .terminal-footer {
     padding: 4rem 2rem 5rem;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
   }
 
-  .footer-cta {
+  .command-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8125rem;
+    backdrop-filter: blur(12px);
+  }
+
+  .command-display .prompt-symbol {
+    color: var(--accent-purple);
+  }
+
+  .command-display .command {
+    color: var(--accent-green);
+  }
+
+  .command-display .url {
+    color: var(--text-tertiary);
+  }
+
+  .cta-button {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 1.25rem 2rem;
-    background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
-    border: 1px solid var(--card-border);
-    border-radius: 20px;
+    padding: 1.125rem 2rem;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    max-width: 500px;
-    width: 100%;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+      0 4px 16px rgba(0, 0, 0, 0.4),
+      0 0 0 0 rgba(0, 223, 216, 0),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
-  .footer-cta::before {
+  .cta-button::before {
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 20px;
+    border-radius: 12px;
     padding: 1px;
-    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink), var(--accent-cyan));
+    background: linear-gradient(135deg, rgba(0, 223, 216, 0.3), rgba(121, 40, 202, 0.2));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    opacity: 0.5;
-    transition: opacity 0.4s;
+    opacity: 0;
+    transition: opacity 0.35s ease;
   }
 
-  .footer-cta:hover::before {
-    opacity: 1;
-  }
-
-  .footer-cta:hover {
-    transform: translateY(-4px) scale(1.02);
+  .cta-button:hover {
+    transform: translateY(-4px);
+    border-color: transparent;
     box-shadow:
-      0 20px 50px rgba(0, 0, 0, 0.5),
-      0 0 60px rgba(121, 40, 202, 0.2),
-      0 0 80px rgba(0, 223, 216, 0.1);
+      0 12px 32px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(0, 223, 216, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .cta-button:hover::before {
+    opacity: 1;
   }
 
   .cta-glow {
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      circle at 30% 50%,
-      rgba(121, 40, 202, 0.15) 0%,
-      transparent 50%
+      ellipse 60% 80% at 30% 0%,
+      rgba(0, 223, 216, 0.06) 0%,
+      transparent 60%
     );
     opacity: 0;
-    transition: opacity 0.4s;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
   }
 
-  .footer-cta:hover .cta-glow {
+  .cta-button:hover .cta-glow {
     opacity: 1;
   }
 
@@ -804,77 +1112,430 @@ const serviceIcons: Record<string, string> = {
     z-index: 2;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    width: 100%;
+    gap: 0.875rem;
   }
 
   .cta-icon {
     flex-shrink: 0;
-    color: var(--text);
-    transition: all 0.4s ease;
+    color: var(--text-secondary);
+    transition: all 0.35s ease;
   }
 
-  .footer-cta:hover .cta-icon {
-    color: var(--accent-pink);
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 10px var(--accent-pink));
+  .cta-button:hover .cta-icon {
+    color: var(--text);
+    transform: scale(1.08);
   }
 
   .cta-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .cta-main {
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text);
-    transition: color 0.3s;
+    letter-spacing: -0.01em;
+    transition: all 0.3s;
   }
 
-  .footer-cta:hover .cta-main {
-    background: linear-gradient(90deg, var(--text), var(--accent-cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .cta-button:hover .cta-text {
+    color: #fff;
   }
 
-  .cta-sub {
-    font-size: 0.8125rem;
-    color: var(--text-tertiary);
-  }
-
-  .cta-arrow {
-    flex-shrink: 0;
-    color: var(--text-tertiary);
-    transition: all 0.4s ease;
-  }
-
-  .footer-cta:hover .cta-arrow {
+  .cta-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
     color: var(--accent-cyan);
-    transform: translateX(4px);
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 223, 216, 0.1);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+  }
+
+  .cta-button:hover .cta-hint {
+    background: rgba(0, 223, 216, 0.15);
+    opacity: 1;
   }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     .bento {
       grid-template-columns: repeat(2, 1fr);
+      gap: 0.625rem;
+    }
+
+    .bento-item {
+      padding: 0.875rem;
+    }
+
+    .panel-header {
+      margin-bottom: 0.375rem;
+    }
+
+    .panel-metrics {
+      margin-top: 0.375rem;
+    }
+
+    .bento-content {
+      gap: 0.625rem;
+    }
+
+    .bento-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .bento-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .system-info {
+      gap: 1rem;
+    }
+
+    .command-display {
+      padding: 0.625rem 1rem;
+      font-size: 0.75rem;
+    }
+
+    .cta-button {
+      padding: 1rem 1.75rem;
+    }
+
+    .cta-text {
+      font-size: 1rem;
     }
   }
 
   @media (max-width: 480px) {
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-content {
+      padding: 2rem 1.5rem;
+      background:
+        linear-gradient(180deg, rgba(3, 3, 3, 0.92) 0%, rgba(3, 3, 3, 0.85) 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(121, 40, 202, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .system-info {
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      padding: 0.625rem 1rem;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .info-label {
+      font-size: 0.5rem;
+      letter-spacing: 0.12em;
+    }
+
+    .info-value {
+      font-size: 0.75rem;
+    }
+
+    .title {
+      margin-top: 1.75rem;
+      font-size: clamp(3rem, 18vw, 5rem);
+      letter-spacing: -0.03em;
+    }
+
+    .tagline {
+      margin-top: 1.25rem;
+      font-size: clamp(1.125rem, 5vw, 1.5rem);
+      font-weight: 500;
+    }
+
+    .typewriter {
+      white-space: normal;
+      border-right: none;
+      animation: fadeIn 0.8s 0.5s ease forwards;
+      opacity: 0;
+      width: auto !important;
+    }
+
+    .description {
+      margin-top: 1.25rem;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .author-btn {
+      margin-top: 2rem;
+      padding: 0.5rem 1.25rem 0.5rem 0.5rem;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .author-avatar {
+      width: 42px;
+      height: 42px;
+    }
+
+    .author-name {
+      font-size: 0.9375rem;
+    }
+
+    .author-cta {
+      font-size: 0.75rem;
+    }
+
+    .scroll-hint {
+      bottom: 1.5rem;
+    }
+
+    .scroll-text {
+      font-size: 0.5625rem;
+      padding: 0.375rem 0.75rem;
+    }
+
+    .scroll-line {
+      height: 24px;
+    }
+
+    .section {
+      padding: 2.5rem 1rem;
+    }
+
+    .section-title {
+      font-size: 0.625rem;
+      padding: 0.5rem 1rem;
+    }
+
     .bento {
       grid-template-columns: 1fr;
+      gap: 0.625rem;
+    }
+
+    .bento-item {
+      padding: 1rem 1.125rem;
+    }
+
+    .bento-content {
+      gap: 1rem;
+    }
+
+    .bento-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+    }
+
+    .bento-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .bento-label {
+      font-size: 0.5625rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .bento-value {
+      font-size: 0.875rem;
+    }
+
+    .panel-metrics {
+      margin-top: 0.625rem;
+    }
+
+    .metric-label {
+      font-size: 0.5625rem;
     }
 
     .cards {
-      grid-template-columns: 1fr;
+      gap: 0.875rem;
     }
 
-    .hero {
-      padding: 3rem 1.5rem;
+    .card {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+
+    .window-titlebar {
+      padding: 0.5rem 0.875rem;
+    }
+
+    .btn-dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    .window-title {
+      font-size: 0.625rem;
+    }
+
+    .card-body {
+      padding: 0.875rem 1rem;
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+    }
+
+    .card-info h3 {
+      font-size: 0.9375rem;
+    }
+
+    .card-info p {
+      font-size: 0.75rem;
+    }
+
+    .card-metrics {
+      padding: 0.5rem 1rem;
+    }
+
+    .card-arrow {
+      top: 2.25rem;
+      right: 0.875rem;
+      width: 16px;
+      height: 16px;
+    }
+
+    .terminal-footer {
+      padding: 3rem 1.25rem 3.5rem;
+      gap: 1.25rem;
+    }
+
+    .command-display {
+      display: none;
+    }
+
+    .cta-button {
+      padding: 1rem 1.5rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .cta-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .cta-text {
+      font-size: 0.9375rem;
+    }
+
+    .cta-hint {
+      font-size: 0.625rem;
+    }
+  }
+
+  /* Extra small screens */
+  @media (max-width: 360px) {
+    .hero-content {
+      padding: 1.5rem 1.25rem;
+    }
+
+    .title {
+      font-size: clamp(2.5rem, 16vw, 3.5rem);
+    }
+
+    .tagline {
+      font-size: 1rem;
+    }
+
+    .description {
+      font-size: 0.9375rem;
+    }
+
+    .system-info {
+      gap: 0.375rem;
+    }
+
+    .info-item {
+      padding: 0.5rem 0.75rem;
+    }
+
+    .author-btn {
+      padding: 0.375rem 1rem 0.375rem 0.375rem;
+    }
+
+    .author-avatar {
+      width: 36px;
+      height: 36px;
+    }
+
+    .bento-item {
+      padding: 0.875rem 1rem;
+    }
+
+    .bento-content {
+      gap: 0.875rem;
+    }
+
+    .bento-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+
+    .bento-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .bento-value {
+      font-size: 0.8125rem;
+    }
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .bento-item,
+    .card,
+    .bento-gradient,
+    .card-gradient,
+    .card-border,
+    .icon-bg,
+    .icon-ring,
+    .typewriter,
+    .panel-status-dot,
+    .cpu-bar::after {
+      animation: none !important;
+    }
+
+    .bento-item,
+    .card {
+      opacity: 1;
+      transform: none;
+    }
+
+    .bento-gradient,
+    .card-gradient {
+      opacity: 0.4;
+    }
+
+    /* Typewriter: show full text immediately */
+    .typewriter {
+      width: 100% !important;
+      border-right: none;
+    }
+
+    /* CPU bar: show at base width */
+    .cpu-bar::after {
+      width: var(--cpu);
     }
   }
 </style>
@@ -889,5 +1550,41 @@ const serviceIcons: Record<string, string> = {
       item.style.setProperty('--x', `${x}%`);
       item.style.setProperty('--y', `${y}%`);
     });
+  });
+
+  // Uptime counter - simulates ~847 days uptime
+  let uptimeSeconds = 73252327;
+  const uptimeEl = document.getElementById('uptime');
+  if (uptimeEl) {
+    const updateUptime = () => {
+      uptimeSeconds++;
+      const d = Math.floor(uptimeSeconds / 86400);
+      const h = Math.floor((uptimeSeconds % 86400) / 3600);
+      const m = Math.floor((uptimeSeconds % 3600) / 60);
+      const s = uptimeSeconds % 60;
+      uptimeEl.textContent = `${d}d ${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    };
+    setInterval(updateUptime, 1000);
+  }
+
+  // Latency fluctuation for service cards
+  document.querySelectorAll('.latency-value').forEach((el) => {
+    const base = parseInt(el.textContent || '25', 10);
+    const fluctuate = () => {
+      const newValue = Math.max(10, base + Math.floor(Math.random() * 10 - 5));
+      el.textContent = newValue.toString();
+    };
+    setInterval(fluctuate, 2000 + Math.random() * 2000);
+  });
+
+  // Connection count fluctuation
+  document.querySelectorAll('.connections').forEach((el) => {
+    const text = el.textContent || '20 conn';
+    const base = parseInt(text, 10);
+    const fluctuate = () => {
+      const newValue = Math.max(5, base + Math.floor(Math.random() * 8 - 4));
+      el.textContent = `${newValue} conn`;
+    };
+    setInterval(fluctuate, 3000 + Math.random() * 2000);
   });
 </script>

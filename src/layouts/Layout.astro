@@ -22,6 +22,20 @@ const otherLang = lang === 'en' ? 'fr' : 'en';
     <title>{title}</title>
   </head>
   <body>
+    <!-- Data flow particles -->
+    <div class="data-particles">
+      <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+      <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+      <div class="particle" style="left: 35%; animation-delay: 4s;"></div>
+      <div class="particle" style="left: 50%; animation-delay: 1s;"></div>
+      <div class="particle" style="left: 65%; animation-delay: 3s;"></div>
+      <div class="particle" style="left: 80%; animation-delay: 5s;"></div>
+      <div class="particle" style="left: 90%; animation-delay: 2.5s;"></div>
+      <div class="particle" style="left: 15%; animation-delay: 6s;"></div>
+      <div class="particle" style="left: 45%; animation-delay: 7s;"></div>
+      <div class="particle" style="left: 75%; animation-delay: 8s;"></div>
+    </div>
+
     <!-- Grid background -->
     <div class="grid-bg"></div>
 
@@ -57,9 +71,13 @@ const otherLang = lang === 'en' ? 'fr' : 'en';
     --accent-pink: #f81ce5;
     --accent-purple: #7928ca;
     --accent-cyan: #00dfd8;
+    --accent-green: #22c55e;
     --card-bg: rgba(20, 20, 20, 0.8);
     --card-border: rgba(255, 255, 255, 0.1);
     --card-border-hover: rgba(255, 255, 255, 0.2);
+
+    /* Glows */
+    --glow-green: 0 0 15px rgba(34, 197, 94, 0.4);
   }
 
   * {
@@ -79,6 +97,52 @@ const otherLang = lang === 'en' ? 'fr' : 'en';
     min-height: 100vh;
     overflow-x: hidden;
     background: var(--bg);
+  }
+
+  /* Data flow particles */
+  .data-particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFlow 12s linear infinite;
+  }
+
+  .particle:nth-child(odd) {
+    background: var(--accent-cyan);
+  }
+
+  .particle:nth-child(3n) {
+    width: 3px;
+    height: 3px;
+    background: var(--accent-purple);
+  }
+
+  @keyframes particleFlow {
+    0% {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    5% {
+      opacity: 0.4;
+    }
+    90% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
   }
 
   /* Grid background */
@@ -219,6 +283,22 @@ const otherLang = lang === 'en' ? 'fr' : 'en';
   ::selection {
     background: var(--accent);
     color: white;
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .particle,
+    .mesh-blob {
+      animation: none !important;
+    }
+
+    .particle {
+      display: none;
+    }
+
+    .mesh-blob {
+      opacity: 0.4;
+    }
   }
 </style>
 

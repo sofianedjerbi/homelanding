@@ -23,7 +23,7 @@ export const translations = {
         { label: 'Networking', value: 'Cilium + Gateway API' },
         { label: 'GitOps', value: 'ArgoCD + SOPS' },
         { label: 'Identity', value: 'Keycloak SSO' },
-        { label: 'IaC', value: 'Terragrunt' },
+        { label: 'Infrastructure', value: 'OpenTofu + Terragrunt' },
         { label: 'Hosting', value: '3 control planes @ Hetzner' },
       ],
     },
@@ -37,7 +37,7 @@ export const translations = {
         },
         {
           name: 'Grafana',
-          description: 'Observability',
+          description: 'Observability · Loki + Prometheus',
           url: 'https://loki.etcd.me',
         },
         {
@@ -52,15 +52,20 @@ export const translations = {
         },
         {
           name: 'Uptime',
-          description: 'Status monitoring',
+          description: 'Uptime Kuma · Status monitoring',
           url: 'https://uptime.etcd.me',
+        },
+        {
+          name: 'Many more',
+          description: 'And many other services',
+          url: '',
         },
       ],
     },
     footer: {
       cta: 'Explore the Infrastructure',
       ctaSub: '100% open source on GitHub',
-      repo: 'https://github.com/sofianedjerbi/homelab',
+      repo: 'https://github.com/sofianedjerbi/etcdme',
     },
   },
   fr: {
@@ -80,7 +85,7 @@ export const translations = {
         { label: 'Réseau', value: 'Cilium + Gateway API' },
         { label: 'GitOps', value: 'ArgoCD + SOPS' },
         { label: 'Identité', value: 'Keycloak SSO' },
-        { label: 'IaC', value: 'Terragrunt' },
+        { label: 'Infrastructure', value: 'OpenTofu + Terragrunt' },
         { label: 'Hébergement', value: '3 control planes @ Hetzner' },
       ],
     },
@@ -94,7 +99,7 @@ export const translations = {
         },
         {
           name: 'Grafana',
-          description: 'Observabilité',
+          description: 'Observabilité · Loki + Prometheus',
           url: 'https://loki.etcd.me',
         },
         {
@@ -109,15 +114,20 @@ export const translations = {
         },
         {
           name: 'Uptime',
-          description: 'Surveillance de disponibilité',
+          description: 'Uptime Kuma · Surveillance',
           url: 'https://uptime.etcd.me',
+        },
+        {
+          name: 'Many more',
+          description: 'Et bien d\'autres services',
+          url: '',
         },
       ],
     },
     footer: {
       cta: 'Explorer l\'Infrastructure',
       ctaSub: '100% open source sur GitHub',
-      repo: 'https://github.com/sofianedjerbi/homelab',
+      repo: 'https://github.com/sofianedjerbi/etcdme',
     },
   },
 } as const;
