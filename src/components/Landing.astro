@@ -22,7 +22,7 @@ const serviceIcons: Record<string, string> = {
       <div class="system-info">
         <div class="info-item">
           <span class="info-label">UPTIME</span>
-          <span class="info-value" id="uptime">847d 14:32:07</span>
+          <span class="info-value" id="uptime">--d --:--:--</span>
         </div>
         <div class="info-item">
           <span class="info-label">NODES</span>
@@ -1552,18 +1552,20 @@ const serviceIcons: Record<string, string> = {
     });
   });
 
-  // Uptime counter - simulates ~847 days uptime
-  let uptimeSeconds = 73252327;
+  // Uptime counter - since November 1st, 2025
+  const startDate = new Date('2025-11-01T00:00:00Z');
   const uptimeEl = document.getElementById('uptime');
   if (uptimeEl) {
     const updateUptime = () => {
-      uptimeSeconds++;
+      const now = new Date();
+      const uptimeSeconds = Math.floor((now.getTime() - startDate.getTime()) / 1000);
       const d = Math.floor(uptimeSeconds / 86400);
       const h = Math.floor((uptimeSeconds % 86400) / 3600);
       const m = Math.floor((uptimeSeconds % 3600) / 60);
       const s = uptimeSeconds % 60;
       uptimeEl.textContent = `${d}d ${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
     };
+    updateUptime();
     setInterval(updateUptime, 1000);
   }
 
